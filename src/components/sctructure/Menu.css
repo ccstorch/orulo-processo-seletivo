@@ -1,0 +1,28 @@
+.menu {
+  width: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.menu .col {
+  padding: 1.9375rem;
+  flex: 1;
+}
+
+.menu .col.nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.menu-link {
+  display: block;
+  padding: 0.5rem;
+}
+.menu-link > * {
+  font-weight: 500;
+}

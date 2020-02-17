@@ -1,0 +1,20 @@
+.input.select {
+  border: solid 1px #979797;
+  padding: 1rem;
+  padding-right: 0;
+  font-weight: 500;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper .triangle {
+  position: absolute;
+  right: 0.8rem;
+  top: 1.4rem;
+}

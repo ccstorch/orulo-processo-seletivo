@@ -1,0 +1,13 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.gallery .item {
+  margin: 1px;
+  min-width: 33%;
+  height: 8rem;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

@@ -1,0 +1,7 @@
+.col {
+  padding: 1rem;
+}
+
+.col.large-gutter {
+  padding: 2rem;
+}
