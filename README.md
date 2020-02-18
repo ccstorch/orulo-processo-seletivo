@@ -1,68 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Acesso
 
-## Available Scripts
+Acesse o projeto pela url: https://orulo.surge.sh
 
-In the project directory, you can run:
+** Favor ler as demais notas antes de acessar para entender o que foi feito por completo e o que cwficouestá pendente.**
+
+## Notas
+
+Entendi que o teste envolvia armazenar os favoritos em um banco, mas como a api não tem uma opção de filtrar por array de ids, eu teria que salvar uma cópia de cada imóvel favorito no banco, duplicando todas as informações dos imóveis. Já que a própria documentação da api da Orulo diz que os dados são atualizados com alta frequência, os imóveis favoritos iriam rapidamente ficar desatualizados. Então decidi fazer somente o front end e salvar os favoritos no redux. Por isso todas as informações são perdidas ao dar refresh no website.
+
+## Perpectiva
+
+Fiz o projeto como sendo um site de uma imobiliária que utiliza a API da orulo.
+Então o usuário alvo seria clientes da imobiliária procurando imóveis para comprar.
+
+## Problemas encontrados
+
+* Os filtros causavam erro ao serem usados, não consegui finalizar a busca de imóveis (ex: https://www.orulo.com.br/api/v2/buildings?status=ready). Então somente está listando todos e ignorando os filtros. Mantive o formulário de busca no site porque montei todo o site encima dessa premissa. E toda a lógica do filtro está desenvolvida, só não está enviando para a api da Orulo.
+
+* Tentei carregar todos os dados de um imóvel ao selecionar um, mas o token fornecido não me permite chamar a api de dados do imóvel pelo id, então apresentei somente os dados que tinha. Por esse motivo, quando der refresh em uma pagina de detalhes de imóvel, os dados são perdidos já que não consigo buscar um imóvel pelo id (ex: https://www.orulo.com.br/api/v2/buildings/4963)
+
+## Scripts
 
 ### `yarn start`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Antes de rodar é necessário criar um arquivo `src/.env.json` com conteúdo:**
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```javascript
+export const ORULO_API_KEY = 'abc'
+export const ORULO_API_URL = 'https://www.orulo.com.br/api/v2'
+```
 
-### `yarn test`
+Rodar o app em desenvolvimento
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### `yarn deploy`
 
-### `yarn build`
+Autializa o app em https://orulo.surge.sh
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## A fazer
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Controle de erros
+* Formatar dados vindo da api para usar camelCase, mantendo o código js com um único padrão de formatação
+* Testes automatizados
+* Apresentação em mapa na busca de imóveis
+* Usar dados reais na galeria de imagens de um imóvel
+* Zoom na galeria de imagens de um imóvel
+* Paginação usando scroll ao invés de botão de “Carregar Mais”
