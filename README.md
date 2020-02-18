@@ -2,7 +2,7 @@
 
 Acesse o projeto pela url: https://orulo.surge.sh
 
-** Favor ler as demais notas antes de acessar para entender o que foi feito por completo e o que cwficouestá pendente.**
+**Favor ler as demais notas antes de acessar para entender o que foi feito por completo e o que cwficouestá pendente.**
 
 ## Notas
 
