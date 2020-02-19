@@ -11,9 +11,13 @@ const MainMenu = ({goTo, favoritesCount}) => (
   <Menu
     leftContent={<Logo onClick={() => goTo('/')} />}
     rightContent={[
-      <MenuLink onClick={() => goTo('/')}>Home</MenuLink>,
-      <MenuLink onClick={() => goTo('/imoveis')}>Imóveis</MenuLink>,
-      <Counter value={favoritesCount}>
+      <MenuLink key={1} onClick={() => goTo('/')}>
+        Home
+      </MenuLink>,
+      <MenuLink key={2} onClick={() => goTo('/imoveis')}>
+        Imóveis
+      </MenuLink>,
+      <Counter key={3} value={favoritesCount}>
         <MenuLink onClick={() => goTo('/favoritos')}>Favoritos</MenuLink>
       </Counter>,
       <IoIosPerson />,

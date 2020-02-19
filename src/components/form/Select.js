@@ -9,9 +9,13 @@ const formatOptions = options => {
   return options.map(
     ({label, value, groupName, suboptions}) =>
       !!groupName ? (
-        <optgroup label={groupName}>{formatOptions(suboptions)}</optgroup>
+        <optgroup key={groupName} label={groupName}>
+          {formatOptions(suboptions)}
+        </optgroup>
       ) : (
-        <option value={value}>{label}</option>
+        <option key={value} value={value}>
+          {label}
+        </option>
       ),
   )
 }

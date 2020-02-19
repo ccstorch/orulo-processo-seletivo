@@ -8,20 +8,23 @@ import Button from '../../../components/actions/Button'
 import Col from '../../../components/grid/Col'
 import Grid from '../../../components/grid/Grid'
 
-const ListBuildings = ({buildings, loadMore, isLoadingMore}) => (
+const ListBuildings = ({buildings, loadMore, isLoadingMore, canLoadMore}) => (
   <Grid largeGutter>
     {buildings.map(building => (
-      <Col width="50%" largeGutter>
+      <Col key={building.id} width="50%" largeGutter>
         <BuildingCard building={building} />
       </Col>
     ))}
-    <Button onClick={!isLoadingMore && loadMore}>{!isLoadingMore ? 'Carregar Mais' : 'Carregando...'}</Button>
+    {canLoadMore && (
+      <Button onClick={!isLoadingMore && loadMore}>{!isLoadingMore ? 'Ver Mais' : 'Carregando...'}</Button>
+    )}
   </Grid>
 )
 
 const mapState = state => ({
   buildings: state.buildings.list,
   isLoadingMore: state.buildings.isLoadingMore,
+  canLoadMore: state.buildings.canLoadMore,
 })
 
 const mapActions = d => ({

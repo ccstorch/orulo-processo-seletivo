@@ -3,6 +3,7 @@ import React from 'react'
 
 import {MERGE_BUILDINGS_LIST, SET_BUILDINGS_LIST, SET_BUILDINGS_LOADING} from './buildings.reducer'
 import {buildingsResource} from '../../../api/buildings/buildingsApi'
+import {prepareFilterParams} from '../../../helpers/filter'
 import {sd} from '../../../helpers/redux'
 import Text from '../../../components/presentation/Text'
 
@@ -16,9 +17,9 @@ class ListBuildingsLoader extends React.Component {
     const {refresh, filter, page, fetchMoreData, fetchData} = nextProps
     // If the page or refresh is different then before, fetch new data
     if (refresh !== this.props.refresh) {
-      fetchData(filter, 1)
+      fetchData(nextProps.filter, 1)
     } else if (page > 1 && page !== this.props.page) {
-      fetchMoreData(filter, page)
+      fetchMoreData(nextProps.filter, nextProps.page)
     }
   }
 
@@ -40,9 +41,7 @@ const mapActions = dispatch => ({
   fetchData: (filter, page) => {
     sd(dispatch, SET_BUILDINGS_LOADING, true)
     buildingsResource
-      // TODO Uncomment this line when the filter is working
-      // .getList({queryParams: filter})
-      .getList()
+      .getList({queryParams: prepareFilterParams(filter)})
       .then(data => {
         sd(dispatch, SET_BUILDINGS_LIST, data)
       })
@@ -52,9 +51,7 @@ const mapActions = dispatch => ({
   },
 
   fetchMoreData: (filter, page) => {
-    // TODO Uncomment this line when the filter is working
-    // buildingsResource.getList({queryParams: {page, ...filter}}).then(data => {
-    buildingsResource.getList({queryParams: {page}}).then(data => {
+    buildingsResource.getList({queryParams: {page, ...prepareFilterParams(filter)}}).then(data => {
       console.log(data)
       sd(dispatch, MERGE_BUILDINGS_LIST, data)
     })

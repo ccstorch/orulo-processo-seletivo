@@ -6,12 +6,15 @@ import {NUMBER_SELECT_OPTIONS} from '../../../config/const'
 import {SET_BUILDINGS_FILTER_ITEM, TOGGLE_BUILDINGS_REFRESH} from './buildings.reducer'
 import {sd} from '../../../helpers/redux'
 import Button from '../../../components/actions/Button'
+import CitiesLoader from '../../addresses/cities/CitiesLoader'
 import Col from '../../../components/grid/Col'
 import Grid from '../../../components/grid/Grid'
-import InputText from '../../../components/form/InputText'
 import ListBuildingTypesLoader from '../../buildingTypes/list/ListBuildingTypesLoader'
 import Select from '../../../components/form/Select'
 import SelectBuildingTypes from '../../buildingTypes/list/SelectBuildingTypes'
+import SelectCities from '../../addresses/cities/SelectCities'
+import SelectStates from '../../addresses/states/SelectStates'
+import StatesLoader from '../../addresses/states/StatesLoader'
 
 const OtherInputs = ({filter, onChange}) => (
   <div>
@@ -19,18 +22,18 @@ const OtherInputs = ({filter, onChange}) => (
       <Col>
         <Select
           label="Suites"
-          onChange={e => onChange('min_suites', e.target.value)}
+          onChange={e => onChange('suites[]', e.target.value)}
           options={NUMBER_SELECT_OPTIONS}
-          value={filter.suites}
+          value={filter['suites[]']}
         />
       </Col>
 
       <Col>
         <Select
           label="Vagas"
-          onChange={e => onChange('parking', e.target.value)}
+          onChange={e => onChange('parking[]', e.target.value)}
           options={NUMBER_SELECT_OPTIONS}
-          value={filter.parking}
+          value={filter['parking[]']}
         />
       </Col>
     </Grid>
@@ -53,38 +56,47 @@ class SearchBuildingsForm extends React.Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <InputText label="Localização" value={filter.locale} onChange={e => onChange('locale', e.target.value)} />
+        <Grid noMarginTopBottom>
+          <Col>
+            <StatesLoader>
+              <SelectStates label="Estado" onChange={e => onChange('state', e.target.value)} value={filter.state} />
+            </StatesLoader>
+          </Col>
+
+          <CitiesLoader state={filter.state}>
+            <Col flex={2}>
+              <SelectCities label="Cidade" onChange={e => onChange('city', e.target.value)} value={filter.city} />
+            </Col>
+          </CitiesLoader>
+        </Grid>
 
         <ListBuildingTypesLoader>
           <SelectBuildingTypes
             label="Tipo de imóvel"
-            onChange={e => onChange('type', [e.target.value])}
-            value={filter.type}
+            onChange={e => onChange('type[]', e.target.value)}
+            value={filter['type[]']}
           />
         </ListBuildingTypesLoader>
-
         <Grid noMarginTopBottom>
           <Col>
             <Select
               label="Quartos"
-              onChange={e => onChange('bedrooms', e.target.value)}
+              onChange={e => onChange('bedrooms[]', e.target.value)}
               options={NUMBER_SELECT_OPTIONS}
-              value={filter.bedrooms}
+              value={filter['bedrooms[]']}
             />
           </Col>
 
           <Col>
             <Select
               label="Banheiros"
-              onChange={e => onChange('bathrooms', e.target.value)}
+              onChange={e => onChange('bathrooms[]', e.target.value)}
               options={NUMBER_SELECT_OPTIONS}
-              value={filter.bathrooms}
+              value={filter['bathrooms[]']}
             />
           </Col>
         </Grid>
-
         {!shortForm && <OtherInputs filter={filter} onChange={onChange} />}
-
         <Button>Buscar</Button>
       </form>
     )
@@ -101,9 +113,6 @@ const mapActions = d => ({
   },
 
   refreshBuildingsList() {
-    alert(
-      '**O filtro não está funcionando, toda vez que uso query params acaba retornando erro 400. Então, por enquanto, está somente encaminhando para a lista de todos os imoveis sem filtros. Os filtros estão sendo computados e formatados no código, somente não está sendo enviado para a api para não causar erro**',
-    )
     d(push('/imoveis'))
     sd(d, TOGGLE_BUILDINGS_REFRESH)
   },

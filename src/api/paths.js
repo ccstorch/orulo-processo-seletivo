@@ -9,6 +9,8 @@ const resource = (name, path) => ({
 const paths = {
   ...resource('Buildings', 'buildings'),
   ...resource('BuildingTypes', 'buildings/types/list'),
+  ...resource('States', 'addresses/states'),
+  ...resource('Cities', 'addresses/cities'),
 }
 
 export default paths

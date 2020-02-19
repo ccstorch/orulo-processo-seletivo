@@ -11,7 +11,7 @@ const IconLink = ({Icon, iconColor, color, children, onClick}) => (
       <Text size="small" style={{color}}>
         {children}
       </Text>
-      <Icon color={iconColor || color} size="1.5rem" />
+      <Icon color={iconColor || color} size="1.5em" />
     </Grid>
   </a>
 )
